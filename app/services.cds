@@ -7,4 +7,3 @@ using from './travel_processor/layouts';
 
 using from './customer/annotations';
 
-using from './v2travel/annotations';
