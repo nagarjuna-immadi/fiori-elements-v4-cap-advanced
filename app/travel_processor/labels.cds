@@ -1,10 +1,10 @@
-using { sap.fe.cap.travel as schema } from '../../db/schema';
+using TravelService from '../../srv/travel-service';
 
 //
 // annotations that control rendering of fields and labels
 //
 
-annotate schema.Travel with @title: '{i18n>Travel}' {
+annotate TravelService.Travel with @title: '{i18n>Travel}' {
   TravelUUID   @UI.Hidden;
   TravelID     @title: '{i18n>TravelID}'      @Common.Text: Description;
   BeginDate    @title: '{i18n>BeginDate}';
@@ -17,11 +17,11 @@ annotate schema.Travel with @title: '{i18n>Travel}' {
   to_Agency    @title: '{i18n>AgencyID}';
 }
 
-annotate schema.TravelStatus with {
+annotate TravelService.TravelStatus with {
   code @Common.Text: name @Common.TextArrangement: #TextOnly
 }
 
-annotate schema.Booking with @title: '{i18n>Booking}' {
+annotate TravelService.Booking with @title: '{i18n>Booking}' {
   BookingUUID   @UI.Hidden;
   to_Travel     @UI.Hidden;
   BookingID     @title: '{i18n>BookingID}';
@@ -35,11 +35,11 @@ annotate schema.Booking with @title: '{i18n>Booking}' {
   to_Customer   @title: '{i18n>CustomerID}'     @Common.Text: to_Customer.LastName;
 }
 
-annotate schema.BookingStatus with {
+annotate TravelService.BookingStatus with {
   code @Common.Text : name @Common.TextArrangement: #TextOnly
 }
 
-annotate schema.BookingSupplement with @title: '{i18n>BookingSupplement}' {
+annotate TravelService.BookingSupplement with @title: '{i18n>BookingSupplement}' {
   BookSupplUUID        @UI.Hidden;
   to_Booking           @UI.Hidden;
   to_Travel            @UI.Hidden;
@@ -49,7 +49,7 @@ annotate schema.BookingSupplement with @title: '{i18n>BookingSupplement}' {
   CurrencyCode         @title: '{i18n>CurrencyCode}';
 }
 
-annotate schema.TravelAgency with @title: '{i18n>TravelAgency}' {
+annotate TravelService.TravelAgency with @title: '{i18n>TravelAgency}' {
   AgencyID     @title: '{i18n>AgencyID}'      @Common.Text: Name;
   Name         @title: '{i18n>AgencyName}';
   Street       @title: '{i18n>Street}';
@@ -61,7 +61,7 @@ annotate schema.TravelAgency with @title: '{i18n>TravelAgency}' {
   WebAddress   @title: '{i18n>WebAddress}';
 }
 
-annotate schema.Passenger with @title: '{i18n>Passenger}' {
+annotate TravelService.Passenger with @title: '{i18n>Passenger}' {
   CustomerID   @title: '{i18n>CustomerID}'    @Common.Text: LastName;
   FirstName    @title: '{i18n>FirstName}';
   LastName     @title: '{i18n>LastName}';
@@ -74,13 +74,13 @@ annotate schema.Passenger with @title: '{i18n>Passenger}' {
   EMailAddress @title: '{i18n>EMailAddress}';
 }
 
-annotate schema.Airline with @title: '{i18n>Airline}' {
+annotate TravelService.Airline with @title: '{i18n>Airline}' {
   AirlineID    @title: '{i18n>AirlineID}'     @Common.Text: Name;
   Name         @title: '{i18n>Name}';
   CurrencyCode @title: '{i18n>CurrencyCode}';
 }
 
-annotate schema.Flight with @title: '{i18n>Flight}' {
+annotate TravelService.Flight with @title: '{i18n>Flight}' {
   AirlineID     @title: '{i18n>AirlineID}';
   FlightDate    @title: '{i18n>FlightDate}';
   ConnectionID  @title: '{i18n>ConnectionID}';
@@ -91,7 +91,7 @@ annotate schema.Flight with @title: '{i18n>Flight}' {
   OccupiedSeats @title: '{i18n>OccupiedSeats}';
 }
 
-annotate schema.Supplement with @title: '{i18n>Supplement}' {
+annotate TravelService.Supplement with @title: '{i18n>Supplement}' {
   SupplementID @title: '{i18n>SupplementID}'  @Common.Text: Description;
   Price        @title: '{i18n>Price}'         @Measures.ISOCurrency: CurrencyCode_code;
   CurrencyCode @title: '{i18n>CurrencyCode}';
