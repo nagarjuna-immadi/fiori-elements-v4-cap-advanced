@@ -1,5 +1,6 @@
 {
   "name": "travel-processor",
+  "version": "0.0.1",
   "private": true,
   "main": "webapp/index.html",
   "engines": {
