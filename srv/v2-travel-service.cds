@@ -40,15 +40,25 @@ service V2TravelService @(path:'/v2processor') {
     action deductDiscount(@(UI.ParameterDefaultValue : 5)percent: Percentage not null @mandatory ) returns Travel;
   };
 
+  // Booking: explicitly projected so it can be annotated below
+  entity Booking as projection on my.Booking;
+
   entity Passenger as projection on my.Passenger {
     *,
     FirstName || ' ' || LastName as FullName: String @title : '{i18n>fullName}',
     to_Booking: Association to many my.Booking on to_Booking.to_Customer = $self
   }
 
+  // Booking, Travel, Passenger: Use "FullName" as text annotation of CustomerID
+  annotate Booking {
+    to_Customer @Common.Text: to_Customer.FullName
+  }  
   annotate Passenger {
     CustomerID @Common.Text: FullName;
   }
+
+  // Ensure all masterdata entities are available to clients
+  annotate my.MasterData with @cds.autoexpose @readonly;
 }
 
 annotate V2TravelService.Travel with @odata.draft.enabled;

@@ -1,6 +1,8 @@
 # CAP sflight
 _out
 *.db
+db.sqlite
+db.sqlite-*
 connection.properties
 default-*.json
 schema.sql

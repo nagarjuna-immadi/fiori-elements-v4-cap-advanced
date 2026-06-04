@@ -9,7 +9,7 @@ service TravelService @(path:'/processor') {
     { grant: ['*'], to: 'admin'}
   ])
 
-entity SupplementScope as projection on my.SupplementScope;
+  entity SupplementScope as projection on my.SupplementScope;
 
  // Function import used in Controller Extension 'PassengerOPExtend.js' to calculate booking data
   function getBookingDataOfPassenger(CustomerID: String) returns my.BookingData;
@@ -44,6 +44,9 @@ entity SupplementScope as projection on my.SupplementScope;
     action acceptTravel();
     action deductDiscount(@(UI.ParameterDefaultValue : 5)percent: Percentage not null @mandatory ) returns Travel;
   };
+
+  // Booking: explicitly projected so it can be annotated below
+  entity Booking as projection on my.Booking;
 
   // Passenger: Add joined property 'FullName' and association 'to_Booking'
   entity Passenger as projection on my.Passenger {
