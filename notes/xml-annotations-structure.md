@@ -185,6 +185,32 @@ one layer to avoid surprises.
 > the customer app runs purely on the CDS annotations — the plumbing is in place
 > but nothing is layered on top yet.
 
+## CAP project vs. standalone Fiori app
+
+Which annotation formats you can *author* depends on whether you own a backend
+model:
+
+| | CAP project | Standalone Fiori Elements app (no CAP) |
+| --- | --- | --- |
+| **CDS** (`.cds`) | ✅ author in the service model | ❌ no model to annotate |
+| **XML** (`annotation.xml`) | ✅ optional, app-side layer | ✅ the only format you author |
+
+**Key idea — everything is XML at the OData wire level.** CDS is just a nicer
+*source language* that compiles to EDMX XML; it's only available when you own a
+CAP (or ABAP) model. In a standalone app you don't author CDS — you author XML,
+and you consume whatever the backend already emitted.
+
+A standalone app typically gets annotations from **two XML sources**:
+
+1. **Backend `$metadata`** — annotations baked into the service. These may have
+   originated from *ABAP CDS* (S/4HANA) or any backend, but by the time the app
+   sees them they're just OData annotations in `$metadata`.
+2. **Local `annotation.xml`** — what you add in the app, layered on top.
+
+> So "in a pure Fiori app only XML is possible" is right for what *you author in
+> the app*. CDS annotation authoring is a CAP/ABAP **backend** capability, not a
+> frontend one.
+
 See also:
 [cds-annotations-structure.md](cds-annotations-structure.md) ·
 [cds-extended-annotate-syntax.md](cds-extended-annotate-syntax.md)
