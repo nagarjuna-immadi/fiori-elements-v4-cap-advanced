@@ -141,6 +141,50 @@ bound actions).
   annotating an *external* service in a standalone Fiori Elements app (no CAP
   model to edit). Verbose but explicit; useful for understanding `$metadata`.
 
+## Using both layers in a CAP project
+
+XML annotations are fully allowed in a CAP project — they live in the Fiori
+Elements **app**, not the service model, and both layers coexist:
+
+1. **CDS annotations (server side)** — the `.cds` files in `app/travel_processor/`
+   and `srv/`. CAP compiles them into the service's `$metadata`. This is the
+   primary, recommended way to annotate in CAP.
+2. **XML annotations (app side)** — an app-local `annotation.xml`, wired into the
+   app's `manifest.json` as an `ODataAnnotation` data source. UI5 **merges** it
+   on top of the service metadata at runtime.
+
+The customer app already has this plumbing:
+
+```jsonc
+// app/customer/webapp/manifest.json
+"mainService": {
+  "uri": "/processor/",
+  "settings": { "annotations": ["annotation"], ... }   // <- references it
+},
+"annotation": {
+  "type": "ODataAnnotation",
+  "uri": "annotations/annotation.xml",
+  "settings": { "localUri": "annotations/annotation.xml" }
+}
+```
+
+See [manifest.json:23](../app/customer/webapp/manifest.json#L23) and
+[manifest.json:30](../app/customer/webapp/manifest.json#L30).
+
+**When to use the app-local XML layer** instead of editing CDS:
+
+- app-specific UI tweaks you don't want in the shared service model, or
+- annotating an *external* service you don't own (no CDS to edit).
+
+**Caution:** when the same term targets the same element in both layers, the
+merge can make it non-obvious which value wins. Keep each annotation in exactly
+one layer to avoid surprises.
+
+> In this project [annotation.xml](../app/customer/webapp/annotations/annotation.xml)
+> is currently just an empty skeleton (references only, no `<Annotations>`), so
+> the customer app runs purely on the CDS annotations — the plumbing is in place
+> but nothing is layered on top yet.
+
 See also:
 [cds-annotations-structure.md](cds-annotations-structure.md) ·
 [cds-extended-annotate-syntax.md](cds-extended-annotate-syntax.md)
