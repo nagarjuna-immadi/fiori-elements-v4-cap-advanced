@@ -88,7 +88,7 @@ annotate TravelService.Travel with @UI: {
         },
         {
             $Type : 'UI.DataFieldForAnnotation',
-            Target: '@UI.DataPoint#Progress',
+            Target: '@UI.DataPoint#progress',
             Label : '{i18n>ProgressOfTravel}',
         },
         {
@@ -281,12 +281,6 @@ SortOrder: [{
     Property  : FlightDate,
     Descending: true
 }]}};
-
-annotate TravelService.Travel with @(UI.DataPoint #Progress: {
-    Value        : Progress,
-    Visualization: #Progress,
-    TargetValue  : 100,
-});
 
 annotate TravelService.Booking with @(
     UI.DataPoint #TotalSupplPrice: {
