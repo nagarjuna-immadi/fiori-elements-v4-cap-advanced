@@ -9,18 +9,10 @@
 
     <!-- Bootstrap the unified shell in sandbox mode for standalone usage.
 
-         The renderer is specified in the global Unified Shell configuration object "sap-ushell-config".
-
-         The fiori2 renderer will render the shell header allowing, for instance,
-         testing of additional application setting buttons.
-
-         The navigation target resolution service is configured in a way that the empty URL hash is
-         resolved to our own application.
-
-         This example uses relative path references for the SAPUI5 resources and test-resources;
-         it might be necessary to adapt them depending on the target runtime platform.
-         The sandbox platform is restricted to development or demo use cases and must NOT be used
-         for productive scenarios.
+         Both the Travel and the Customer apps are registered here so that the
+         UI.DataFieldForIntentBasedNavigation target "Customer-display" can be
+         resolved by the CrossApplicationNavigation service. Without a second
+         registered inbound the action is hidden at runtime.
     -->
     <script type="text/javascript">
         window["sap-ushell-config"] = {
@@ -43,12 +35,19 @@
                 }
             },
             applications: {
-                "sapfecapcustomer-tile": {
+                "Travel-manage": {
+                    title: "Travels",
+                    description: "Manage Travels",
+                    additionalInformation: "SAPUI5.Component=sap.fe.cap.travel",
+                    applicationType: "URL",
+                    url: "../"
+                },
+                "Customer-display": {
                     title: "Customers",
                     description: "Display Customers",
                     additionalInformation: "SAPUI5.Component=sap.fe.cap.customer",
                     applicationType: "URL",
-                    url: "../"
+                    url: "../../sap.fe.cap.customer/"
                 }
             }
         };
@@ -64,7 +63,7 @@
         data-sap-ui-theme="sap_horizon"
         data-sap-ui-compatVersion="edge"
         data-sap-ui-language="en"
-        data-sap-ui-resourceroots='{"sap.fe.cap.customer": "../"}'
+        data-sap-ui-resourceroots='{"sap.fe.cap.travel": "../", "sap.fe.cap.customer": "../../sap.fe.cap.customer/"}'
         data-sap-ui-frameOptions="allow"> // NON-SECURE setting for testing environment
     </script>
     <script>

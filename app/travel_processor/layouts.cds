@@ -96,7 +96,7 @@ annotate TravelService.Travel with @UI: {
             Target: 'to_Agency/@Communication.Contact#contact',
             Label : 'Agency',
         },
-         {
+        {
             $Type              : 'UI.DataFieldForIntentBasedNavigation',
             SemanticObject     : 'Customer',
             Action             : 'display',
