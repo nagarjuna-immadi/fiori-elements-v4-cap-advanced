@@ -75,6 +75,62 @@ Defines the columns (and inline actions) of a table / list report.
 - `layouts.cds:266`
 - `customer.cds:4`
 
+### `UI.DataField`
+
+A `$Type` record — the default field record inside `LineItem`/`FieldGroup`/
+`Identification` collections that binds a column/form field to a property.
+
+- `layouts.cds:33, 37, 79, 147, 152, 159, 163, 478, 482, 486`
+- `customer.cds:6, 9, 12, 15, 18, 21, 30, 34, 38, 42, 46, 86, 90, 93, 103`
+
+### `UI.DataFieldForAction`
+
+A `$Type` record used inside `Identification`/`LineItem` collections to render
+an action (bound/unbound operation) as a button rather than a data field.
+
+- `layouts.cds:14`
+- `layouts.cds:19`
+- `layouts.cds:24`
+- `layouts.cds:57`
+- `layouts.cds:62`
+- `layouts.cds:85` — `Action: 'TravelService.deductDiscount'`
+
+### `UI.DataFieldForAnnotation`
+
+A `$Type` record that embeds another annotation target (e.g. a `DataPoint`,
+`Chart` or `Contact`) as a field within a collection.
+
+- `layouts.cds:90` — `Target: '@UI.DataPoint#Progress'`
+- `layouts.cds:95` — `Target: 'to_Agency/@Communication.Contact#contact'`
+- `layouts.cds:203`
+
+### `UI.DataFieldForIntentBasedNavigation`
+
+A `$Type` record that renders a button/link triggering intent-based
+(cross-app) navigation to a semantic object and action.
+
+- `layouts.cds:100`
+
+### Other `UI.DataField*` record types (not used in this project)
+
+These derive from the abstract base `UI.DataFieldAbstract` and share common
+members (`Label`, `Criticality`, `![@UI.Importance]`, `![@UI.Hidden]`). Listed
+here for reference — none currently appear in this project's CDS files.
+
+| Record type | Purpose |
+| --- | --- |
+| `UI.DataFieldWithAction` | A value that is also clickable to trigger an action (text + action combined). |
+| `UI.DataFieldWithIntentBasedNavigation` | A value rendered as a link performing intent-based (cross-app) navigation. |
+| `UI.DataFieldWithNavigationPath` | A value rendered as a link following an OData navigation property (in-app, to a related entity). |
+| `UI.DataFieldWithUrl` | A value rendered as a hyperlink to an external/absolute `Url`. |
+| `UI.DataFieldWithActionGroup` | Groups multiple actions/IBNs under a single menu button. |
+| `UI.DataFieldForActionGroup` | Menu-button grouping of actions (FE support varies by floorplan/version). |
+| `UI.DataFieldForIntentBasedNavigationGroup` | Menu-button grouping of IBN targets (FE support varies). |
+
+Note: `UI.DataFieldAbstract` is the abstract base type and is never instantiated
+directly. The `With…` variants display a value *as* a link; the `For…` variants
+render a standalone button/link with no underlying property value.
+
 ### `@UI.PresentationVariant`
 
 Bundles a default sort order and the visualization(s) (table/chart) to
